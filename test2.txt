@@ -1,2 +1,3 @@
-it's a test2.txt of the f1
+this is  a test2.txt of the feat1 of f1 branch
 i know that's 2nd branch
+i'm glad 4 me
