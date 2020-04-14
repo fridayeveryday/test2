@@ -1,2 +1,2 @@
-it's a test2.txt of the f1
-i know that's 2nd branch
+it's a test2.txt of the f2
+i know that's third branch
