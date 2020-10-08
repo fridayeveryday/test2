@@ -77,7 +77,7 @@ __CREATED:__
 
 
 ---
-####  __GET__ : /article/article/{id}
+####  __PUT__ : /updateOneQuestion
 
 ___response:___
 
@@ -86,229 +86,58 @@ __OK:__
 - 200 - Все прошло гладко
 
 ```
-{
-  "id": Integer,
-  "title": String,
-  "text": String,
-  "description": String,
-}
-```
-
-__Error:__
-
-- 404 - нет такой статьи
-
----
-####  __POST__ : /article/article
-
-___request:___
-
-___header:__ Token - access token 
-
-```
-{
-  "id": Integer, 	/* ID черновика */
-  "text": String,
-  "title": String,
-  "description": String,
-  "idTheme": Integer
-}
-```
-
-___response:___
-
-__OK:__
-
-- 200 - Все прошло гладко
-
-__Error:__
-
-- 400 - плохой запрос
-- 401 - неавторизован
-- 426 - access токен  протух
-
----
-
-####  __PUT__ : /article/article
-
-___request:___
-
-__header:__ Token - access token
-
-```
-{
-	"id": Integer,
-	"text": String,
-	"title": String,
-	"description": String,
-	"idTheme": Integer
-}
-```
-___response:___
-
-__OK:__
-
-- 200 - Все прошло гладко
-
-__Error:__
-
-- 400 - плохой запрос
-- 401 - неавторизован
-- 426 - access токен  протух
-
----
-
-####  __DELETE__ : /article/article
-
-___request:___
-
-___header:___  Token - access token
-
-```
-{
-	"id": Integer
-}
-```
-___response:___
-
-__OK:__
-
-- 200 - Все прошло гладко
-
-__Error:__
-
-- 400 - плохой запрос
-- 401 - неавторизован
-- 426 - access токен  протух
-
----
-### Edit
----
-
-####  __GET__ : /article/edit/{id}
-
-___request:___
-
-___header:___  Token - access token
-
-___response:___
-
-__OK:__
-
-- 200 - Все прошло гладко
-
-```
-{
-  "id": Integer,
-  "text": String,
-  "title": String,
-  "date": String,
-  "description": String,
-  "idTheme": Integer
-}
-```
-
-__Error:__
-
-- 400 - плохой запрос
-- 401 - неавторизован
-- 426 - access токен  протух
-
----
-
-### Draft
----
-
-####  __POST__ : /article/draft
-
-___request:___
-
-___header:___  Token - access token
-
-```
-{
-  "title": String,
-  "description": String
-}
-```
-
-___response:___
-
-__OK:__
-
-- 200 - Все прошло гладко
-
-__Error:__
-
-- 400 - плохой запрос
-- 401 - неавторизован
-- 426 - access токен  протух
-
----
-### Profile
----
-
-####  __GET__ : /article/profile
-
-___request:___
-
-___header:___  Token - access token
-
-___response:___
-
-__OK:__
-
-- 200 - Все прошло гладко
-
-```
-{
-  "profile": {
-    "name": String,
-    "surname": String,
-    "description": String,
-    "position": String,
-    "drafts": [
       {
-        "title": String,
-        "description": String,
-        "date": String
-      },
-      ...
-    ],
-    "articles": [
-      {
-        "title": String,
-        "description": String,
-        "date": String
-      },
-      ...
+        "id": 5,
+        "name": "математика",
+        "question": "какая математика помимо высшей изучается на 2 сестре 1 курса?",
+        "rightAnswers": ["Дискретная"]
+    }
+```
+
+__Error:__
+
+- 400 - нет такого вопроса, смотри какой id указан в теле json-a, скорее вопроса с таким id  не существует
+
+---
+
+####  __PUT__ : /updateManyQuestions
+
+___response:___
+
+__OK:__
+
+- 200 - Все прошло гладко
+
+```
+         [
+		{
+		    "id": 28,
+		    "name": "математика",
+		    "question": "Какой ряд называтся общим случаем ряда Маклорена?",
+		    "rightAnswers": ["ряд Тейлора"]
+		},
+		{
+		    "id": 30,
+		    "name": "Русский язык",
+		    "question": "Жиши пиши через",
+		    "rightAnswers": ["и"]
+		},
+		{
+		    "id": 32,
+		    "name": "Языки программирования",
+		    "question": "Какой язык навзвается питоном",
+		    "rightAnswers": ["Python"]
+		}
     ]
-  }
-}
 ```
 
 __Error:__
 
-- 400 - плохой запрос
-- 401 - неавторизован
-- 426 - access токен  протух
+- 400 - нет какого-то вопроса, смотри какой id указан в теле json-a, скорее вопроса с таким id  не существует
 
 ---
+####  __DELETE__ : /deleteQuestions
 
-####  __PUT__ : /article/profile
-
-___request:___
-
-___header:___  Token - access token
-
-```
-{
-  "name": String,
-  "surname": String,
-  "description": String,
-  "position": String
-}
-```
 
 ___response:___
 
@@ -319,6 +148,82 @@ __OK:__
 __Error:__
 
 - 400 - плохой запрос
+
+
+в теле указывается id-шники вопроса (просто числа через запятую)
+
+```
+[33, 35, 36]
+
+```
+---
+####  __DELETE__ : /deleteOneQuestion
+
+
+___response:___
+
+__OK:__
+
+- 200 - Все прошло гладко
+
+__Error:__
+
+- 400 - плохой запрос, можно удалять один вопрос через /deleteQuestions (см. выше) передав в тело одно число ([25] - вот так)
+
+
+в теле указывается id вопроса (просто число)
+
+```
+25
+
+```
+---
+####  __GET__ : /getTest
+
+___response:___
+
+__OK:__
+
+- 200 - Все прошло гладко
+
+в теле json-a одно число - количество вопросов из теста
+
+```
+5
+```
+
+---
+####  __GET__ : /findAll
+
+___response:___
+
+__FOUND:__
+
+- 302 - Все вопросы найдены и выгружены Вам
+
+```
+
+```
+
+__Error:__
+
+- 400 - плохой запрос
 - 401 - неавторизован
 - 426 - access токен  протух
- 
+
+---
+
+####  __DELETE__ : /deleteAllQuestions
+
+___response:___
+
+__OK:__
+
+- 200 - Все вопросы удалены
+
+
+```
+
+```
+
+
