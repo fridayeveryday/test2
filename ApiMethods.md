@@ -6,92 +6,75 @@
 ---
 #### __GET__ : /hello
 
-___response:___ "Hello world"
+___response:___ Hello world
 
 __OK:__
 
 - 200 - Все прошло гладко
 ```
-{
-  "sections" : [
+
+```
+
+---
+#### __POST__ : /createManyQuestions
+___response:___
+
+__CREATED:__
+
+- 201 - Созданы вопросы
+
+```
+[
     {
-      "uuid": String,
-      "title": String,
+       
+        "name": "теория автоматов",
+        "question": "Какие виды автоматов вы знаете",
+        "rightAnswers": [
+            "Мили",
+		"Мура"
+        ]
     },
-    ...
-  ]
-}
+    {
+        "name": "основы автоматики",
+        "question": "Что такое САУ?",
+        "rightAnswers": [
+            "система автоматизированного управления"
+        ]
+    },
+    {
+        
+        "name": "основы автоматики",
+        "question": "Что такое Автоматика?",
+        "rightAnswers": [
+            "отрасль науки и техники, которая охватывает теорию и принципы построения систем управления техническими процессами, действующих без непосредственного участия человека"
+        ]
+    }
+]
 ```
 
----
-#### __GET__ : /article/section/{uuidSection}
+
+
+#### __POST__: /createOneQuestion
 
 ___response:___
 
-__OK:__
+__CREATED:__
 
-- 200 - Все прошло гладко
-
-```
-{
-  "section" : {
-    "uuid": String,
-    "title": String,
-    "themes": [
-       {
-          "title": String,
-	  "atricles": [
-	   {
-	     "id": Integer,
-             "title": String,
-             "description": String,
-             "date": String
-	   },
-	   ...
-	}
-     ]
-   }
-}
-```
-
-__Error:__
-
-- 404 - нет такого раздела
-
----
-
-#### __GET__: /section/theme
-
-___response:___
-
-__OK:__
-
-- 200 - Все прошло гладко
+- 201 - Создан один вопрос
 
 ```
-{
-  "section" : {
-    "uuid": String,
-    "title": String,
-    "themes": [
-      {
-	      "id": Integer,
-        "title": String,
-	    },
-	    ...
-	  ]
-  }
-}
+    {
+       
+        "name": "теория автоматов",
+        "question": "Какие виды автоматов вы знаете",
+        "rightAnswers": [
+            "Мили",
+	    "Мура"
+        ]
+    }
+
 ```
 
----
-### Article
-
-> __Примечение:__ Для того чтобы выложить статью нужно выполнит следующию последовательность операций:
->
-> 1. Запрос [POST]: /article/draft -  создаст черновик
-> 2. Запрос [GET]: /article/edit - предоставит айди черновика для редактирования
-> 3. Запрос [POST]: /article/article - переведёт черновик в состояние статьи
 
 ---
 ####  __GET__ : /article/article/{id}
