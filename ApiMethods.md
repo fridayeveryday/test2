@@ -4,9 +4,9 @@
 
 ### Section
 ---
-#### __GET__ : /article/section
+#### __GET__ : /hello
 
-___response:___
+___response:___ "Hello world"
 
 __OK:__
 
